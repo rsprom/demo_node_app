@@ -1,0 +1,10 @@
+﻿extends layout
+
+block content
+  h1= "Welcome!"
+  h2 Create a question
+  form(action="/questions/create", method="post")
+    input(type="text", name="question")
+    input(type="submit")
+
+  h2 Edit questions
