@@ -31,11 +31,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="models\answer.js" />
+    <Compile Include="models\index.js" />
+    <Compile Include="models\question-choice.js" />
+    <Compile Include="models\question.js" />
+    <Compile Include="models\user.js" />
     <Compile Include="routes\admin.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\questions.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="bin\www" />
+    <Content Include="config\config.json" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
@@ -47,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
+    <Folder Include="config\" />
+    <Folder Include="models\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
