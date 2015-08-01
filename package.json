@@ -8,7 +8,7 @@
   "description": "demo_app",
   "author": {
     "name": "Ritchie Prom",
-    "email": ""
+    "email": "ritchie.prom@gmail.com"
   },
   "dependencies": {
     "body-parser": "~1.8.1",

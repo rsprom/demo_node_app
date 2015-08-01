@@ -2,14 +2,15 @@
 
 block content
     if question == null
-        p= "You've answered all the questions!"
+        h1= "You've answered all the questions!"
     else
-        p= "Please answer the question!"
+        h1= "Hello!" + 
+        h1= "Please answer the following question:"
         form(action="/users/saveanswer?userid=#{userid}", method="post")
             p=question.question
         
             each choice in question.QuestionChoices
-                input(type="radio", id="#{choice.id}", name="questionChoice", value="#{choice.id}")
+                input(type="radio", id="#{choice.id}", name="questionChoice", value="#{choice.id}", required)
                 label(for="#{choice.id}")=choice.questionChoice
 
             input(type="submit")

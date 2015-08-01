@@ -9,23 +9,10 @@ router.get('/', function (req, res) {
 
 /* POST users to create if none exists. */
 router.post('/create', function (req, res) {
-    models.User.findOne({
+    models.User.findOrCreate({
         where: { username: req.body.username }
     }).then(function (user) {
-        if (user == null) {
-            models.User.create({
-                username: req.body.username
-            }).then(function () {
-                models.User.findOne({
-                    where: { username: req.body.username }
-                }).then(function (newUser) {
-                    redirect(res, newUser);
-                })
-            })
-        }
-        else {
-            redirect(res, user);
-        }
+            redirect(res, user[0]);
     })
 });
 

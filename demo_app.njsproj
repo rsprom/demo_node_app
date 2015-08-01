@@ -43,9 +43,11 @@
     <Compile Include="bin\www" />
     <Content Include="config\config.json" />
     <Content Include="package.json" />
+    <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
     <Content Include="views\admin.jade" />
+    <Content Include="views\answers.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\error.jade" />

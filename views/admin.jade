@@ -1,24 +1,31 @@
 ﻿extends layout
 
 block content
-  h1= "Welcome!"
-  h2 Create a question
-  form(action="/questions/create", method="post")
-    input(type="text", name="questionInputNew")
-    input(type="submit")
-
-  h2 Add questions
-  each question in questions
-    h3="Question"
-    form(action="/questions/update", method="post")
-        input(type="test" value="#{question.question}")
-        input(type="submit")
-
-    h4="Add an answer"
-    form(action="/questions/addChoice?questionId=#{question.id}", method="post")
-        input(type="test", name="questionChoiceNew")
-        input(type="submit")
-
-    each choice in question.QuestionChoices
-        p=choice.questionChoice
+    div
+      h1= "Welcome to the Admin Console!"
     hr
+    div#user-list
+      h1 Users who have answered questions:
+      each user in users
+        a.username(href="/admin/answers?userId=#{user.id}")=user.username
+        br
+    hr
+    div#create
+      h1 Create a question
+      form(action="/questions/create", method="post")
+        input(type="text", name="questionInputNew", required)
+        input(type="submit").btn
+      hr
+      h2 Add questions
+      each question in questions
+        h3 Question
+        p=question.question
+
+        h4 Add an answer
+        form(action="/questions/addChoice?questionId=#{question.id}", method="post")
+            input(type="text", name="questionChoiceNew", required)
+            input(type="submit")
+
+        each choice in question.QuestionChoices
+            p=choice.questionChoice
+        hr
