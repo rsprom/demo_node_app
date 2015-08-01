@@ -4,7 +4,21 @@ block content
   h1= "Welcome!"
   h2 Create a question
   form(action="/questions/create", method="post")
-    input(type="text", name="question")
+    input(type="text", name="questionInputNew")
     input(type="submit")
 
-  h2 Edit questions
+  h2 Add questions
+  each question in questions
+    h3="Question"
+    form(action="/questions/update", method="post")
+        input(type="test" value="#{question.question}")
+        input(type="submit")
+
+    h4="Add an answer"
+    form(action="/questions/addChoice?questionId=#{question.id}", method="post")
+        input(type="test", name="questionChoiceNew")
+        input(type="submit")
+
+    each choice in question.QuestionChoices
+        p=choice.questionChoice
+    hr

@@ -4,37 +4,48 @@ var models = require('../models');
 
 /* GET users listing. */
 router.get('/', function (req, res) {
-
     res.send('respond with a resource');
 });
 
+/* POST users to create if none exists. */
 router.post('/create', function (req, res) {
     models.User.findOne({
-        where: { username: 'req.body.username'}
+        where: { username: req.body.username }
     }).then(function (user) {
         if (user == null) {
             models.User.create({
                 username: req.body.username
+            }).then(function () {
+                models.User.findOne({
+                    where: { username: req.body.username }
+                }).then(function (newUser) {
+                    redirect(res, newUser);
+                })
             })
         }
         else {
-
+            redirect(res, user);
         }
-    }).then(function () {
-        if (req.body.username.toLowerCase() == 'admin') {
-            models.Question.findAll({
-                include: [models.QuestionChoice]
-            }).then(function (questions) {
-                res.render('admin', {
-                    questions: questions
-                });
-            });
-        }
-        else {
-            res.render('questions');
-        }
-        
-    });
+    })
 });
+
+/* POST answers to create answer once user submits. */
+router.post('/saveanswer', function (req, res) {
+    models.Answer.create({
+        QuestionChoiceId: req.body.questionChoice,
+        UserId: req.query.userid
+    }).then(function () {
+        res.redirect('/questions?user=' + req.query.userid);
+    })
+});
+
+function redirect(res, user){
+    if (user.username.toLowerCase() == 'admin') {
+        res.redirect('/admin');
+    }
+    else {
+        res.redirect('/questions?user=' + user.id);
+    }
+}
 
 module.exports = router;

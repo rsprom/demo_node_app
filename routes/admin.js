@@ -1,9 +1,19 @@
 ﻿var express = require('express');
 var router = express.Router();
+var models = require('../models');
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    res.render('questions.jade', { title: 'Questions' });
+    models.Question.findAll({
+        include: [models.QuestionChoice],
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }).then(function (questions) {
+        res.render('admin', {
+            questions: questions
+        });
+    });
 });
 
 module.exports = router;
