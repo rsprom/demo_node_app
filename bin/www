@@ -1,0 +1,62 @@
+﻿#!/usr/bin/env node
+var debug = require('debug')('demo_app');
+var app = require('../app');
+var model = require ('../models');
+
+app.set('port', process.env.PORT || 3000);
+
+/// Set Database Up Before Connecting Sequelize ___________________________
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'admin',
+    password : 'supersecret'
+});
+
+console.log("Connecting...");
+connection.connect(function (err, results) {
+    if (err) {
+        console.log("ERROR: " + err.message);
+        throw err;
+    }
+    console.log("Connected.");
+    clientConnected();
+});
+
+// Creates development database
+var clientConnected = function () {
+    connection.query('CREATE DATABASE database_development', function (err, results) {
+        if (err) {
+            if (err.errno == '1007') {
+                console.log("Database already exists.");
+            }
+            else {
+                console.log("ERROR: " + err.message);
+                throw err;
+            }
+        }
+        dbCreated();
+    });
+}
+
+var dbCreated = function () {
+    connection.query('USE database_development', function (err, results) {
+        if (err) {
+            console.log("ERROR: " + err.message);
+            throw err;
+        }
+        
+        console.log("Connected to database_development")
+
+		sequelizeInit();
+    });
+}
+///_________________________________________________________________________________
+
+function sequelizeInit() {
+	model.sequelize.sync().then(function () {
+		var server = app.listen(app.get('port'), function() {
+			debug('Express server listening on port ' + server.address().port);
+		});
+	});
+}
