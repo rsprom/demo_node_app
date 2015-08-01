@@ -3,7 +3,8 @@
 This application is a demoing the use of NodeJS, ExpressJS, and MySql through Sequelizer.
 
 ## Before Starting
-Ensure MySql server is setup with the right credentials and location. The two places are here:
+Ensure MySql server is setup with the right credentials and location updated in two of the application
+files. The two files are located are here:
 
 ```
 "../config/config.json"
